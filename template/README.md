@@ -2,21 +2,28 @@
 
 > <%= description %>
 
-## Build Setup
+## Quick start
 
-``` bash
-# install dependencies
+```
 $ <%= pm %> install
-
-# serve with hot reload at localhost:3000
-$ <%= pm %> run dev
-
-# build for production and launch server
-$ <%= pm %> run build
-$ <%= pm %> start
-
-# generate static project
-$ <%= pm %> run generate
+$ <%= pm %> run start
 ```
 
-For detailed explanation on how things work, checkout [Nuxt.js docs](https://nuxtjs.org).
+and navigate to http://localhost:9000
+
+## Server side rendering
+
+```
+$ <%= pm %> run serve
+```
+
+and navigate to http://localhost:3000
+
+## Commands
+
+- `<%= pm %> run build` - production build of assets for deployment.
+- `<%= pm %> run build:dev` - development build of assets.
+- `<%= pm %> run start` - automatically build assets on file changes and start a development server with hot reload.
+- `<%= pm %> run serve` - build production assets and start an express based nodejs server for server side rendering.
+- `<%= pm %> run lint` - lint all files and fix with eslint and prettier.
+- `<%= pm %> run test` - run application tests.
