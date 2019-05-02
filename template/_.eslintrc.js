@@ -25,6 +25,7 @@ module.exports = {
     'plugin:prettier/recommended'<% } %>
   ],
   plugins: [
+    'import'
   ],
   // add your custom rules here
   rules: {

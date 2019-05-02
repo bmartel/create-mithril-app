@@ -15,7 +15,7 @@ if (process.env.NODE_ENV !== "production") {
 // initialize mithril reference to midux
 midux(m);
 
-export default (state, url) => {
+export default (state) => {
   return createStore(
     {
       page,

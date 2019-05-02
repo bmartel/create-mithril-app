@@ -14,10 +14,10 @@
     "preserve": "npm run build",
     "serve": "NODE_ENV=production node ./server/index.js",<% if (test !== 'none') { %>
     "test": <% if (test === 'mocha') { %>"mocha --compilers css:./test-compiler,js:babel-core/register --recursive"<% } else { %>"<%= test %>"<% } %>,<% } %>
-    "lint": "eslint --fix --ext .js,.css src"
+    "lint": "eslint --fix --ext .js src"
   },
   "lint-staged": {
-    "*.{js,css}": [
+    "*.{js}": [
       "npm run lint",
       "git add"
     ]

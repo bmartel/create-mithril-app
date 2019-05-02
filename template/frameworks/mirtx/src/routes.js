@@ -6,7 +6,7 @@ m.route.prefix(process.env.NODE_ENV === "production" ? "" : "#");
 export default {
   "/": { onmatch: () => resolve(import("@/components/home")) },
   "/counter": {
-    onmatch: (ctx, url) => {
+    onmatch: ctx => {
       if (ctx.server) {
         console.log("Counter loaded from server");
       }
