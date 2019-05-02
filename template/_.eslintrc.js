@@ -2,6 +2,7 @@ module.exports = {
   root: true,
   env: {
     browser: true,
+    es6: true,
     node: true<% if (mocha === 'yes'){ %>,
     mocha: true<% } %><% if (jest === 'yes'){ %>,
     'jest/globals': true<% } %>
