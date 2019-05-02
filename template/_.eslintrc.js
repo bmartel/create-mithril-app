@@ -3,8 +3,8 @@ module.exports = {
   env: {
     browser: true,
     es6: true,
-    node: true<% if (mocha === 'yes'){ %>,
-    mocha: true<% } %><% if (jest === 'yes'){ %>,
+    node: true<% if (test === 'mocha'){ %>,
+    mocha: true<% } %><% if (test === 'jest'){ %>,
     'jest/globals': true<% } %>
   },
   settings: {
