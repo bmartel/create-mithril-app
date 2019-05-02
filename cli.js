@@ -6,7 +6,7 @@ const generator = path.resolve(__dirname, './')
 // In a custom directory or current directory
 const outDir = path.resolve(process.argv[2] || '.')
 
-console.log(`> Generating Nuxt.js project in ${outDir}`)
+console.log(`> Generating Mithril.js project in ${outDir}`)
 
 // See https://sao.js.org/#/advanced/standalone-cli
 sao({ generator, outDir, logLevel: 2 })
