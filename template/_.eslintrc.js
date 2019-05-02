@@ -3,8 +3,8 @@ module.exports = {
   env: {
     browser: true,
     es6: true,
-    node: true<% if (test === 'mocha'){ %>,
-    mocha: true<% } %><% if (test === 'jest'){ %>,
+    node: true<% if (test === 'mocha') { %>,
+    mocha: true<% } %><% if (test === 'jest') { %>,
     'jest/globals': true<% } %>
   },
   settings: {
@@ -20,13 +20,13 @@ module.exports = {
       jsx: true
     }
   },
-  extends: [<% if (prettier === 'yes'){ %>
+  extends: [<% if (prettier === 'yes') { %>
     'plugin:prettier/recommended',
     'prettier'<% } %>
-  ],<% if (prettier === 'yes'){ %>
-  plugins: [
-    'prettier'
-  ],<% } %>
+  ],
+  plugins: [<% if (prettier === 'yes') { %>
+  'prettier'<% } %>
+  ],
   // add your custom rules here
   rules: {
        // Enforce import order
