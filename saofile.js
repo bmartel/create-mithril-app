@@ -16,7 +16,7 @@ module.exports = {
     {
       name: 'description',
       message: 'Project description',
-      default: `My ${superb()} Nuxt.js project`
+      default: `My ${superb()} Mithril.js project`
     },
     {
       name: 'server',
@@ -26,7 +26,6 @@ module.exports = {
         'none',
         'express',
         'koa',
-        'adonis',
         'hapi',
         'feathers',
         'micro',
@@ -161,21 +160,6 @@ module.exports = {
     }
 
     if (this.answers.server !== 'none') {
-      if (this.answers.server === 'adonis') {
-        const files = {}
-        for (const action of actions) {
-          const options = { cwd: join(rootDir, action.templateDir), dot: true }
-          for (const file of glob.sync(`*`, options)) {
-            files[file] = `resources/${file}`
-          }
-        }
-        files['nuxt.config.js'] = 'config/nuxt.js'
-
-        actions.push({
-          type: 'move',
-          patterns: files
-        })
-      }
       actions.push({
         type: 'add',
         files: '**',
