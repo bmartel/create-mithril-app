@@ -65,16 +65,11 @@ module.exports = {
       choices: [
         'none',
         'bootstrap',
-        'vuetify',
         'bulma',
         'tailwind',
-        'element-ui',
-        'buefy',
-        'ant-design-vue',
-        'iview',
         'tachyons'
       ],
-      default: 'none'
+      default: 'tailwind'
     },
     {
       name: 'test',
@@ -83,9 +78,10 @@ module.exports = {
       choices: [
         'none',
         'jest',
-        'ava'
+        'ava',
+        'mocha',
       ],
-      default: 'none'
+      default: 'mocha'
     },
     {
       name: 'mode',
@@ -109,7 +105,7 @@ module.exports = {
       message: 'Choose a package manager',
       choices: ['npm', 'yarn'],
       type: 'list',
-      default: 'npm'
+      default: 'yarn'
     }
   ],
   templateData() {
@@ -142,7 +138,7 @@ module.exports = {
     const actions = [{
       type: 'add',
       files: '**',
-      templateDir: 'template/nuxt',
+      templateDir: 'template/mithril',
       filters: {
         'static/icon.png': 'features.includes("pwa")'
       }
