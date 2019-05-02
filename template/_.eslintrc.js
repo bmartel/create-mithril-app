@@ -20,12 +20,11 @@ module.exports = {
       jsx: true
     }
   },
-  extends: [<% if (prettier === 'yes') { %>
-    'plugin:prettier/recommended',
-    'prettier'<% } %>
+  extends: [
+    'eslint:recommended'<% if (prettier === 'yes') { %>,
+    'plugin:prettier/recommended'<% } %>
   ],
-  plugins: [<% if (prettier === 'yes') { %>
-  'prettier'<% } %>
+  plugins: [
   ],
   // add your custom rules here
   rules: {
@@ -73,7 +72,7 @@ module.exports = {
     'object-shorthand': 2,
 
     // No useless destructuring/importing/exporting renames
-    'no-useless-rename': 2,
+    'no-useless-rename': 2
   },
   globals: {
     requestAnimationFrame: true,
