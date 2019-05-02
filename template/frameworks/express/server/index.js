@@ -1,34 +1,49 @@
-const express = require('express')
-const consola = require('consola')
-const { Nuxt, Builder } = require('nuxt<% if (edge) { %>-edge<% } %>')
-const app = express()
 
-// Import and Set Nuxt.js options
-let config = require('../nuxt.config.js')
-config.dev = !(process.env.NODE_ENV === 'production')
+require("raf/polyfill");
+require("mithril/test-utils/browserMock")(global);
 
-async function start() {
-  // Init Nuxt.js
-  const nuxt = new Nuxt(config)
+const md5File = require("md5-file");
+const path = require("path");
+const ignoreStyles = require("ignore-styles");
 
-  const { host, port } = nuxt.options.server
+const register = ignoreStyles.default;
 
-  // Build only in dev mode
-  if (config.dev) {
-    const builder = new Builder(nuxt)
-    await builder.build()
+// We also want to ignore all image requests
+// When running locally these will load from a standard import
+// When running on the server, we want to load via their hashed version in the build folder
+const extensions = [".gif", ".jpeg", ".jpg", ".png", ".svg"];
+
+// Override the default style ignorer, also modifying all image requests
+register(ignoreStyles.DEFAULT_EXTENSIONS, (mod, filename) => {
+  if (!extensions.find(f => filename.endsWith(f))) {
+    // If we find a style
+    return ignoreStyles.noOp();
   } else {
-    await nuxt.ready()
+    // If we find an image
+    const hash = md5File.sync(filename).slice(0, 6);
+    const bn = path.basename(filename).replace(/(\.\w{3})$/, `.${hash}$1`);
+
+    mod.exports = `/static/media/${bn}`;
   }
+});
 
-  // Give nuxt middleware to express
-  app.use(nuxt.render)
+require("@babel/register")({
+  ignore: [/\/build\//],
+  presets: [["@babel/preset-env", { targets: { node: "current" } }]],
+  plugins: [
+    [
+      "babel-plugin-module-resolver",
+      {
+        root: ["../"],
+        alias: {
+          "@": "./src",
+        },
+      },
+    ],
+    "@babel/syntax-dynamic-import",
+    "babel-plugin-dynamic-import-node",
+    "mitts/babel",
+  ],
+});
 
-  // Listen the server
-  app.listen(port, host)
-  consola.ready({
-    message: `Server listening on http://${host}:${port}`,
-    badge: true
-  })
-}
-start()
+require("./server");
