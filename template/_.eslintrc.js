@@ -11,8 +11,13 @@ module.exports = {
       node: { extensions: ['.js', '.mjs'] }
     }
   },
+  parser: 'babel-eslint',
   parserOptions: {
-    parser: 'babel-eslint'
+    ecmaVersion: 2018,
+    sourceType: 'module',
+    ecmaFeatures: {
+      jsx: true
+    }
   },
   extends: [<% if (prettier === 'yes'){ %>
     'plugin:prettier/recommended',
