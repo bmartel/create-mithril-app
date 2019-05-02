@@ -1,17 +1,13 @@
 require("mithril/test-utils/browserMock")(global)
 
+import micro from 'micro'
+import dispatch from 'micro-route/dispatch'
+import consola from 'consola'
 import Mitts from "mitts"
 import { express as MittsExpress } from "mitts/loader"
-import bodyParser from "body-parser"
-import express from "express"
-import morgan from "morgan"
 import path from "path"
-import cookieParser from "cookie-parser"
-
-import client from "../src/index"
 
 async function start() {
-  const app = express()
   const port = process.env.PORT || 3000
   const host = process.env.HOST || 'localhost'
   const buildDir = path.resolve(__dirname, "../build")
@@ -24,22 +20,20 @@ async function start() {
     routes: client.routes,
   })
 
-  app
-    .use(bodyParser.json())
-    .use(bodyParser.urlencoded({ extended: false }))
-    .use(morgan("dev"))
-    .use(cookieParser())
-    .use(express.static(buildDir))
-    .use(mitts.middleware())
+  const server = micro(async (req, res) => {
+    await dispatch().dispatch('*', ['GET'], (req, res) =>
+    mitts.middleware()(req, res)
+    )(req, res)
+  })
 
   await Mitts.preloadAll()
 
-  // Listen the server
-  app.listen(port, host)
+  server.listen(port, host)
 
   consola.ready({
     message: `Server listening on http://${host}:${port}`,
     badge: true
   })
 }
+
 start()

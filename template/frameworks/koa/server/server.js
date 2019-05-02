@@ -1,17 +1,17 @@
 require("mithril/test-utils/browserMock")(global)
 
+import Koa from 'koa'
+import consola from 'consola'
 import Mitts from "mitts"
 import { express as MittsExpress } from "mitts/loader"
-import bodyParser from "body-parser"
-import express from "express"
-import morgan from "morgan"
 import path from "path"
-import cookieParser from "cookie-parser"
 
 import client from "../src/index"
 
+const app = new Koa()
+
 async function start() {
-  const app = express()
+
   const port = process.env.PORT || 3000
   const host = process.env.HOST || 'localhost'
   const buildDir = path.resolve(__dirname, "../build")
@@ -24,17 +24,15 @@ async function start() {
     routes: client.routes,
   })
 
-  app
-    .use(bodyParser.json())
-    .use(bodyParser.urlencoded({ extended: false }))
-    .use(morgan("dev"))
-    .use(cookieParser())
-    .use(express.static(buildDir))
-    .use(mitts.middleware())
+  app.use(ctx => {
+    ctx.status = 200
+    ctx.respond = false // Bypass Koa's built-in response handling
+    ctx.req.ctx = ctx
+    mitts.middleware()(ctx.req, ctx.res)
+  })
 
   await Mitts.preloadAll()
 
-  // Listen the server
   app.listen(port, host)
 
   consola.ready({
@@ -42,4 +40,5 @@ async function start() {
     badge: true
   })
 }
+
 start()

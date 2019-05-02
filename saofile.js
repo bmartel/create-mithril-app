@@ -31,7 +31,7 @@ module.exports = {
         'micro',
         'fastify'
       ],
-      default: 'none'
+      default: 'express'
     },
     {
       name: 'features',
@@ -63,8 +63,6 @@ module.exports = {
       type: 'list',
       choices: [
         'none',
-        'bootstrap',
-        'bulma',
         'tailwind',
         'tachyons'
       ],
@@ -81,6 +79,17 @@ module.exports = {
         'mocha',
       ],
       default: 'mocha'
+    },
+    {
+      name: 'state',
+      message: 'Use a state management framework',
+      type: 'list',
+      choices: [
+        'none',
+        'mirtx',
+        'redux',
+      ],
+      default: 'mirtx'
     },
     {
       name: 'mode',
@@ -164,6 +173,14 @@ module.exports = {
         type: 'add',
         files: '**',
         templateDir: `template/frameworks/${this.answers.server}`
+      })
+    }
+
+    if (this.answers.state !== 'none') {
+      actions.push({
+        type: 'add',
+        files: '**',
+        templateDir: `template/frameworks/${this.answers.state}`
       })
     }
 

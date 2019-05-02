@@ -2,18 +2,19 @@ require("mithril/test-utils/browserMock")(global)
 
 import Mitts from "mitts"
 import { express as MittsExpress } from "mitts/loader"
-import bodyParser from "body-parser"
-import express from "express"
-import morgan from "morgan"
 import path from "path"
-import cookieParser from "cookie-parser"
+import consola from 'consola'
+import feathers from '@feathersjs/feathers'
+import express from '@feathersjs/express'
+import configuration from '@feathersjs/configuration'
 
 import client from "../src/index"
 
+process.env.NODE_CONFIG_DIR = path.join(__dirname, 'config/')
+
 async function start() {
-  const app = express()
-  const port = process.env.PORT || 3000
-  const host = process.env.HOST || 'localhost'
+  const app = express(feathers())
+
   const buildDir = path.resolve(__dirname, "../build")
 
   const mitts = MittsExpress({
@@ -25,21 +26,21 @@ async function start() {
   })
 
   app
-    .use(bodyParser.json())
-    .use(bodyParser.urlencoded({ extended: false }))
-    .use(morgan("dev"))
-    .use(cookieParser())
+    .configure(configuration())
     .use(express.static(buildDir))
     .use(mitts.middleware())
 
+  const host = app.get('host')
+  const port = app.get('port')
+
   await Mitts.preloadAll()
 
-  // Listen the server
   app.listen(port, host)
 
   consola.ready({
-    message: `Server listening on http://${host}:${port}`,
+    message: `Feathers application started on ${host}:${port}`,
     badge: true
   })
 }
+
 start()

@@ -1,30 +1,32 @@
-const { Nuxt, Builder } = require('nuxt<% if (edge) { %>-edge<% } %>')
-const fastify = require('fastify')({
+require("mithril/test-utils/browserMock")(global)
+
+import Mitts from "mitts"
+import { express as MittsExpress } from "mitts/loader"
+import Fastify from 'fastify'
+
+import client from "../src/index"
+
+const fastify = Fastify({
   logger: true
 })
 
-// Import and Set Nuxt.js options
-const config = require('../nuxt.config.js')
-config.dev = !(process.env.NODE_ENV === 'production')
-
 async function start() {
-  // Instantiate nuxt.js
-  const nuxt = new Nuxt(config)
+  const port = process.env.PORT || 3000
+  const host = process.env.HOST || 'localhost'
+  const buildDir = path.resolve(__dirname, "../build")
 
-  const {
-    host = process.env.HOST || '127.0.0.1',
-    port = process.env.PORT || 3000
-  } = nuxt.options.server
+  const mitts = MittsExpress({
+    html: `${buildDir}/app.html`,
+    manifest: `${buildDir}/mitts.json`,
+    createSession(cookies) {},
+    createStore: client.store,
+    routes: client.routes,
+  })
 
-  // Build only in dev mode
-  if (config.dev) {
-    const builder = new Builder(nuxt)
-    await builder.build()
-  } else {
-    await nuxt.ready()
-  }
+  fastify
+    .use(mitts.middleware())
 
-  fastify.use(nuxt.render)
+  await Mitts.preloadAll()
 
   fastify.listen(port, host, (err, address) => {
     if (err) {
