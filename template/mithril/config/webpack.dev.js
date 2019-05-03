@@ -1,10 +1,6 @@
 const path = require('path')
-const fs = require('fs')
 const webpack = require('webpack')
-const { WebpackPluginServe: Serve } = require('webpack-plugin-serve')
-
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin')
 const ManifestPlugin = require('webpack-manifest-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const errorOverlayMiddleware = require('react-dev-utils/errorOverlayMiddleware')
@@ -13,15 +9,40 @@ const noopServiceWorkerMiddleware = require('react-dev-utils/noopServiceWorkerMi
 const ignoredFiles = require('react-dev-utils/ignoredFiles')
 const config = require('./config')
 
-const protocol = process.env.HTTPS === 'true' ? 'https' : 'http'
-const watch = process.env.NODE_ENV === 'development'
+const https =  process.env.HTTPS === 'true'
 const host = process.env.HOST || '0.0.0.0'
 const port = process.env.PORT || 9000
+
+const devServer = {
+  disableHostCheck: process.env.DANGEROUSLY_DISABLE_HOST_CHECK === 'true',
+  compress: true,
+  clientLogLevel: 'none',
+  contentBase: config.paths.public,
+  watchContentBase: true,
+  hot: true,
+  publicPath: config.output.publicPath,
+  watchOptions: {
+    ignored: ignoredFiles(config.paths.app),
+  },
+  https,
+  host,
+  port,
+  overlay: false,
+  historyApiFallback: {
+    disableDotRule: true,
+  },
+  before(app, server) {
+    app.use(evalSourceMapMiddleware(server))
+    app.use(errorOverlayMiddleware())
+    app.use(noopServiceWorkerMiddleware())
+  },
+}
 
 module.exports = {
   mode: 'development',
   devtool: config.devtool,
   entry: [config.paths.entry],
+  devServer,
   optimization: {
     splitChunks: {
       chunks: 'all',
@@ -99,15 +120,7 @@ module.exports = {
       fileName: config.output.manifest,
       publicPath: config.output.publicPath,
     }),
-    new Serve({
-      host,
-      port,
-      hmr: true,
-      historyFallback: true,
-      static: [config.paths.public],
-    }),
   ],
-  watch,
   node: {
     dgram: 'empty',
     fs: 'empty',
