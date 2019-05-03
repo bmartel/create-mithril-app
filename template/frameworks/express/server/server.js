@@ -5,6 +5,7 @@ import { express as MittsExpress } from "mitts/loader"
 import bodyParser from "body-parser"
 import express from "express"
 import morgan from "morgan"
+import consola from 'consola';
 import path from "path"
 import cookieParser from "cookie-parser"
 
