@@ -24,8 +24,8 @@
   },
   "dependencies": {
     "@babel/core": "^7.1.2",
+    "@babel/preset-env": "^7.1.0",
     "@babel/plugin-syntax-dynamic-import": "^7.0.0",
-    "@babel/register": "^7.0.0",
     "lodash": "^4.17.11",
     "@babel/polyfill": "^7.0.0"<% if (edge) { %>,
     "mithril": "latest"<% } else { %>,
