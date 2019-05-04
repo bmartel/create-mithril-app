@@ -1,21 +1,21 @@
-import m from "mithril";
-import thunk from "redux-thunk";
-import logger from "redux-logger";
-import { createStore, init as midux } from "midux";
+import m from 'mithril'
+import thunk from 'redux-thunk'
+import logger from 'redux-logger'
+import { createStore, init as midux } from 'midux'
 
-import count from "@/reducers/counter";
-import page from "@/reducers/page";
+import count from '@/reducers/counter'
+import page from '@/reducers/page'
 
-const middleware = [thunk];
+const middleware = [thunk]
 
-if (process.env.NODE_ENV !== "production") {
-  middleware.push(logger);
+if (process.env.NODE_ENV !== 'production') {
+  middleware.push(logger)
 }
 
 // initialize mithril reference to midux
-midux(m);
+midux(m)
 
-export default (state) => {
+export default state => {
   return createStore(
     {
       page,
@@ -23,5 +23,5 @@ export default (state) => {
     },
     state,
     middleware
-  ); // eslint-disable-line
-};
+  ) // eslint-disable-line
+}

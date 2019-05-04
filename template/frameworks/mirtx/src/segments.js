@@ -1,4 +1,4 @@
-import { segment } from "mirtx"
+import { segment } from 'mirtx'
 
 export const text = segment('text')
 

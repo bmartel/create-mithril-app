@@ -1,4 +1,4 @@
-import { Store } from "mirtx"
+import { Store } from 'mirtx'
 
 export const store = new Store()
 

@@ -1,21 +1,21 @@
-require("mithril/test-utils/browserMock")(global)
+require('mithril/test-utils/browserMock')(global)
 
-import Mitts from "mitts"
-import { express as MittsExpress } from "mitts/loader"
-import path from "path"
+import Mitts from 'mitts'
+import { express as MittsExpress } from 'mitts/loader'
+import path from 'path'
 import consola from 'consola'
 import feathers from '@feathersjs/feathers'
 import express from '@feathersjs/express'
 import configuration from '@feathersjs/configuration'
 
-import client from "../src/index"
+import client from '../src/index'
 
 process.env.NODE_CONFIG_DIR = path.join(__dirname, 'config/')
 
 async function start() {
   const app = express(feathers())
 
-  const buildDir = path.resolve(__dirname, "../build")
+  const buildDir = path.resolve(__dirname, '../build')
 
   const mitts = MittsExpress({
     html: `${buildDir}/app.html`,
@@ -39,7 +39,7 @@ async function start() {
 
   consola.ready({
     message: `Feathers application started on ${host}:${port}`,
-    badge: true
+    badge: true,
   })
 }
 

@@ -3,7 +3,7 @@ require('mithril/test-utils/browserMock')(global)
 import path from 'path'
 import consola from 'consola'
 import Mitts from 'mitts'
-import { Loader } from 'mitts/loader'
+import Loader from 'mitts/loader'
 import Hapi from '@hapi/hapi'
 import Inert from '@hapi/inert'
 
@@ -21,26 +21,40 @@ const server = new Hapi.Server({
   },
 })
 
+const mitts = new Loader(
+  (request, h) => ({
+    request: request.raw.req,
+    response: request.raw.res,
+    next: h.continue,
+  }),
+  {
+    html: `${buildDir}/index.html`,
+    manifest: `${buildDir}/mitts.json`,
+    createSession(cookies) {},
+    createStore: client.store,
+    routes: client.routes,
+  }
+)
+
 async function start() {
-  await server.register(Inert);
+  try {
+    await server.register(Inert)
 
-  await server
-    .register({
-      plugin: async function(server, options) {
-        // TODO: make this work with hapi
-        app.use(mitts.middleware());
-
-        const mitts = MittsExpress({
-          html: `${buildDir}/app.html`,
-          manifest: `${buildDir}/mitts.json`,
-          createSession(cookies) {},
-          createStore: client.store,
-          routes: client.routes,
-        });
-
-        await Mitts.preloadAll()
+    server.route({
+      method: 'GET',
+      path: '/{param*}',
+      handler: {
+        directory: {
+          path: '.',
+          redirectToSlash: true,
+          index: true,
+        },
       },
     })
+
+    server.ext('onPostHandler', mitts.middleware())
+
+    await Mitts.preloadAll()
 
     await server.start()
 
@@ -48,8 +62,10 @@ async function start() {
       message: `Server running at: ${server.info.uri}`,
       badge: true,
     })
-    .catch(err => {
-      consola.error(err)
-      throw err
-    })
+  } catch (err) {
+    consola.error(err)
+    throw err
+  }
 }
+
+start()

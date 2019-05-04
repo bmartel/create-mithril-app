@@ -1,71 +1,46 @@
-require('mithril/test-utils/browserMock')(global)
+require("mithril/test-utils/browserMock")(global)
 
-import path from 'path'
-import consola from 'consola'
-import Mitts from 'mitts'
-import Loader from 'mitts/loader'
-import Hapi from '@hapi/hapi'
-import Inert from '@hapi/inert'
+import Mitts from "mitts"
+import { express as MittsExpress } from "mitts/loader"
+import bodyParser from "body-parser"
+import express from "express"
+import morgan from "morgan"
+import consola from 'consola';
+import path from "path"
+import cookieParser from "cookie-parser"
 
-import client from '../src/index'
+import client from "../src/index"
 
-const buildDir = path.resolve(__dirname, '../build')
+async function start() {
+  const app = express()
+  const port = process.env.PORT || 3000
+  const host = process.env.HOST || 'localhost'
+  const buildDir = path.resolve(__dirname, "../build")
 
-const server = new Hapi.Server({
-  host: process.env.HOST || '127.0.0.1',
-  port: process.env.PORT || 3000,
-  routes: {
-    files: {
-      relativeTo: buildDir,
-    },
-  },
-})
-
-const mitts = new Loader(
-  (request, h) => ({
-    request: request.raw.req,
-    response: request.raw.res,
-    next: h.continue,
-  }),
-  {
-    html: `${buildDir}/index.html`,
+  const mitts = MittsExpress({
+    html: `${buildDir}/app.html`,
     manifest: `${buildDir}/mitts.json`,
     createSession(cookies) {},
     createStore: client.store,
     routes: client.routes,
-  }
-)
+  })
 
-async function start() {
-  try {
-    await server.register(Inert)
+  app
+    .use(bodyParser.json())
+    .use(bodyParser.urlencoded({ extended: false }))
+    .use(morgan("dev"))
+    .use(cookieParser())
+    .use(express.static(buildDir))
+    .use(mitts.middleware())
 
-    server.route({
-      method: 'GET',
-      path: '/{param*}',
-      handler: {
-        directory: {
-          path: '.',
-          redirectToSlash: true,
-          index: true,
-        },
-      },
-    })
+  await Mitts.preloadAll()
 
-    server.ext('onPostHandler', mitts.middleware())
+  // Listen the server
+  app.listen(port, host)
 
-    await Mitts.preloadAll()
-
-    await server.start()
-
-    consola.ready({
-      message: `Server running at: ${server.info.uri}`,
-      badge: true,
-    })
-  } catch (err) {
-    consola.error(err)
-    throw err
-  }
+  consola.ready({
+    message: `Server listening on http://${host}:${port}`,
+    badge: true
+  })
 }
-
 start()

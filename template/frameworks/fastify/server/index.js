@@ -1,19 +1,19 @@
-require("mithril/test-utils/browserMock")(global)
+require('mithril/test-utils/browserMock')(global)
 
-import Mitts from "mitts"
-import { express as MittsExpress } from "mitts/loader"
+import Mitts from 'mitts'
+import { express as MittsExpress } from 'mitts/loader'
 import Fastify from 'fastify'
 
-import client from "../src/index"
+import client from '../src/index'
 
 const fastify = Fastify({
-  logger: true
+  logger: true,
 })
 
 async function start() {
   const port = process.env.PORT || 3000
   const host = process.env.HOST || 'localhost'
-  const buildDir = path.resolve(__dirname, "../build")
+  const buildDir = path.resolve(__dirname, '../build')
 
   const mitts = MittsExpress({
     html: `${buildDir}/app.html`,
@@ -23,8 +23,7 @@ async function start() {
     routes: client.routes,
   })
 
-  fastify
-    .use(mitts.middleware())
+  fastify.use(mitts.middleware())
 
   await Mitts.preloadAll()
 
