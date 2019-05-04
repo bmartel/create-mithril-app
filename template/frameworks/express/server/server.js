@@ -29,7 +29,7 @@ async function start() {
     .use(bodyParser.urlencoded({ extended: false }))
     .use(morgan("dev"))
     .use(cookieParser())
-    .use(express.static(buildDir))
+    .use(express.static(config.output.path))
     .use(mitts.middleware())
 
   await Mitts.preloadAll()

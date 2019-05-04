@@ -23,7 +23,7 @@ async function start() {
     routes: client.routes,
   })
 
-  app.use(serve(buildDir))
+  app.use(serve(config.output.path))
 
   app.use(ctx => {
     ctx.status = 200

@@ -14,7 +14,6 @@ const fastify = Fastify({
 async function start() {
   const port = process.env.PORT || 3000
   const host = process.env.HOST || 'localhost'
-  const buildDir = path.resolve(__dirname, '../build')
 
   const mitts = MittsExpress({
     html: config.paths.htmlEntry,

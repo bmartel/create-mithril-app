@@ -26,7 +26,7 @@ async function start() {
 
   app
     .configure(configuration())
-    .use(express.static(buildDir))
+    .use(express.static(config.output.path))
     .use(mitts.middleware())
 
   const host = app.get('host')

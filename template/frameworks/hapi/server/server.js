@@ -14,7 +14,7 @@ const server = new Hapi.Server({
   port: process.env.PORT || 3000,
   routes: {
     files: {
-      relativeTo: buildDir,
+      relativeTo: config.output.path,
     },
   },
 })
