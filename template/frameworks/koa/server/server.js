@@ -1,6 +1,7 @@
 require("mithril/test-utils/browserMock")(global)
 
 import Koa from 'koa'
+import serve from 'koa-static'
 import consola from 'consola'
 import Mitts from "mitts"
 import { express as MittsExpress } from "mitts/loader"
@@ -24,11 +25,13 @@ async function start() {
     routes: client.routes,
   })
 
+  app.use(serve(buildDir))
+
   app.use(ctx => {
     ctx.status = 200
     ctx.respond = false // Bypass Koa's built-in response handling
     ctx.req.ctx = ctx
-    mitts.middleware()(ctx.req, ctx.res)
+    mitts.middleware()(ctx.req, ctx.res, ctx.next)
   })
 
   await Mitts.preloadAll()
