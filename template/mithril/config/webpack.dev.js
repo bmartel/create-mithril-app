@@ -15,11 +15,8 @@ const port = process.env.PORT || 9000
 
 const devServer = {
   disableHostCheck: process.env.DANGEROUSLY_DISABLE_HOST_CHECK === 'true',
-  compress: true,
   clientLogLevel: 'none',
   contentBase: config.paths.public,
-  watchContentBase: true,
-  hot: true,
   publicPath: config.output.publicPath,
   watchOptions: {
     ignored: ignoredFiles(config.paths.app),
@@ -40,7 +37,7 @@ const devServer = {
 
 module.exports = {
   mode: 'development',
-  devtool: config.devtool,
+  devtool: false, // config.devtool,
   entry: [config.paths.entry],
   devServer,
   optimization: {
