@@ -1,29 +1,29 @@
-const path = require("path");
-const glob = require("glob");
-const webpack = require("webpack");
+const path = require('path')
+const glob = require('glob')
+const webpack = require('webpack')
 
-const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
-const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const InlineChunkHtmlPlugin = require("react-dev-utils/InlineChunkHtmlPlugin");
-const InterpolateHtmlPlugin = require("react-dev-utils/InterpolateHtmlPlugin");
-const ManifestPlugin = require("webpack-manifest-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const PurgeCssPlugin = require("purgecss-webpack-plugin");
-const WorkboxWebpackPlugin = require("workbox-webpack-plugin");
-const WebpackPwaManifest = require("webpack-pwa-manifest");
-const { LoadablePlugin } = require("mitts/webpack");
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const InlineChunkHtmlPlugin = require('react-dev-utils/InlineChunkHtmlPlugin')
+const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin')
+const ManifestPlugin = require('webpack-manifest-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const PurgeCssPlugin = require('purgecss-webpack-plugin')
+const WorkboxWebpackPlugin = require('workbox-webpack-plugin')
+const WebpackPwaManifest = require('webpack-pwa-manifest')
+const { LoadablePlugin } = require('mitts/webpack')
 
-const config = require("./config");
-const utils = require("./utils");
+const config = require('./config')
+const utils = require('./utils')
 
 module.exports = {
-  mode: "production",
+  mode: 'production',
   devtool: config.devtool,
   entry: [config.paths.entry],
   optimization: {
     splitChunks: {
-      chunks: "all",
+      chunks: 'all',
       name: false,
     },
     runtimeChunk: true,
@@ -36,7 +36,7 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: [".js", ".json"],
+    extensions: ['.js', '.json'],
     alias: config.paths.alias,
   },
   output: {
@@ -47,7 +47,7 @@ module.exports = {
   },
   optimization: {
     splitChunks: {
-      chunks: "all",
+      chunks: 'all',
       name: false,
     },
     runtimeChunk: true,
@@ -59,19 +59,19 @@ module.exports = {
         oneOf: [
           {
             test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
-            loader: "url-loader",
+            loader: 'url-loader',
             options: {
               limit: 10000,
-              name: "static/media/[name].[hash:6].[ext]",
+              name: 'static/media/[name].[hash:6].[ext]',
             },
           },
           {
             test: /\.mjs$/,
-            type: "javascript/auto",
+            type: 'javascript/auto',
           },
           {
             test: /\.js$/,
-            loader: "babel-loader",
+            loader: 'babel-loader',
             include: config.paths.js,
             options: {
               cacheDirectory: true,
@@ -80,17 +80,17 @@ module.exports = {
           },
           {
             test: /\.hbs$/,
-            loader: "handlebars-loader",
+            loader: 'handlebars-loader',
           },
           {
             test: /\.css$/,
-            use: [MiniCssExtractPlugin.loader, "css-loader", "postcss-loader"],
+            use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader'],
           },
           {
             exclude: [/\.(js|jsx)$/, /\.html$/, /\.hbs$/, /\.json$/],
-            loader: "file-loader",
+            loader: 'file-loader',
             options: {
-              name: "static/media/[name].[hash:6].[ext]",
+              name: 'static/media/[name].[hash:6].[ext]',
             },
           },
         ],
@@ -99,7 +99,7 @@ module.exports = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      "process.env": {
+      'process.env': {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV),
       },
     }),
@@ -113,21 +113,19 @@ module.exports = {
     }),
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
     new PurgeCssPlugin({
-      whitelist: ["*", "button", "img", "input", "optgroup", "select", "textarea", "body", "html", /\[.*\]/, /::.+/],
+      whitelist: ['*', 'button', 'img', 'input', 'optgroup', 'select', 'textarea', 'body', 'html', /\[.*\]/, /::.+/],
       paths: [...glob.sync(`${config.paths.app}/**/*.js`, { nodir: true }), config.html.template],
       extractors: [
         {
           extractor: utils.TailwindExtractor,
-          extensions: ["html", "hbs", "js"],
+          extensions: ['html', 'hbs', 'js'],
         },
       ],
     }),
-    new WorkboxWebpackPlugin.GenerateSW({
-      clientsClaim: true,
+    new WorkboxWebpackPlugin.InjectManifest({
+      swSrc: config.pwa.serviceWorker,
       exclude: [/\.map$/, new RegExp(config.output.manifest)],
-      importWorkboxFrom: "cdn",
-      navigateFallback: config.output.publicPath + config.html.filename,
-      navigateFallbackBlacklist: [new RegExp("^/_"), new RegExp("/[^/]+\\.[^/]+$")],
+      importWorkboxFrom: 'cdn',
     }),
     new WebpackPwaManifest(config.pwa),
     new LoadablePlugin({
@@ -135,11 +133,11 @@ module.exports = {
     }),
   ],
   node: {
-    dgram: "empty",
-    fs: "empty",
-    net: "empty",
-    tls: "empty",
-    child_process: "empty",
+    dgram: 'empty',
+    fs: 'empty',
+    net: 'empty',
+    tls: 'empty',
+    child_process: 'empty',
     setImmediate: false,
   },
-};
+}

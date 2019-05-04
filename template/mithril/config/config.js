@@ -57,6 +57,7 @@ const pwa = {
       sizes: [96, 128, 192, 256, 384, 512],
     },
   ],
+  serviceWorker: utils.resolve('src/sw.js'),
 }
 
 const srcPath = utils.resolve('src')
