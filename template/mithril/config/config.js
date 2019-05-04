@@ -1,18 +1,18 @@
-const pkg = require("../package.json")
-const isProd = process.env.NODE_ENV === "production"
-const utils = require("./utils")
+const pkg = require('../package.json')
+const isProd = process.env.NODE_ENV === 'production'
+const utils = require('./utils')
 
 const output = {
-  path: utils.resolve("build"),
-  filename: isProd ? "static/js/[name].[chunkhash:6].js" : "static/js/bundle.js",
-  chunkFilename: `static/js/[name]${isProd ? ".[chunkhash:6]" : ""}.chunk.js`,
-  publicPath: process.env.PUBLIC_PATH || "/",
+  path: utils.resolve('build'),
+  filename: isProd ? 'static/js/[name].[chunkhash:6].js' : 'static/js/bundle.js',
+  chunkFilename: `static/js/[name]${isProd ? '.[chunkhash:6]' : ''}.chunk.js`,
+  publicPath: process.env.PUBLIC_PATH || '/',
   css: {
-    filename: `static/css/[name]${isProd ? ".[contenthash:6]" : ""}.css`,
-    chunkFilename: `static/css/[name]${isProd ? ".[contenthash:6]" : ""}.chunk.css`,
+    filename: `static/css/[name]${isProd ? '.[contenthash:6]' : ''}.css`,
+    chunkFilename: `static/css/[name]${isProd ? '.[contenthash:6]' : ''}.chunk.css`,
   },
-  mitts: "./build/mitts.json",
-  manifest: "asset-manifest.json",
+  mitts: './build/mitts.json',
+  manifest: 'asset-manifest.json',
 }
 
 const template = {
@@ -21,13 +21,13 @@ const template = {
 
 // Html plugin options
 const html = {
-  title: "Mithril Redux",
+  title: 'Mithril Redux',
   meta: {
-    viewport: "width=device-width, initial-scale=1, shrink-to-fit=no",
+    viewport: 'width=device-width, initial-scale=1, shrink-to-fit=no',
   },
   inject: true,
-  filename: "index.html",
-  template: utils.resolve("config/template.hbs"),
+  filename: 'index.html',
+  template: utils.resolve('config/template.hbs'),
   minify: {
     removeComments: isProd,
     collapseWhitespace: isProd,
@@ -45,40 +45,42 @@ const html = {
 
 const pwa = {
   name: html.title,
-  short_name: "",
-  theme_color: "#000000",
-  background_color: "#ffffff",
-  description: "",
+  short_name: '',
+  theme_color: '#000000',
+  background_color: '#ffffff',
+  description: '',
   crossorigin: null, //can be null, use-credentials or anonymous
   inject: true,
   icons: [
     {
-      src: utils.resolve("src/assets/img/mithril-logo.png"),
+      src: utils.resolve('src/assets/img/mithril-logo.png'),
       sizes: [96, 128, 192, 256, 384, 512],
     },
   ],
 }
 
-const srcPath = utils.resolve("src")
+const srcPath = utils.resolve('src')
 
 const paths = {
   app: srcPath,
   public: utils.ensureSlash(output.publicPath, true),
-  entry: utils.resolve("src/index.js"),
+  entry: utils.resolve('src/index.js'),
+  htmlEntry: utils.resolve(`build/index.html`),
+  mittsManifest: utils.resolve('build/mitts.json'),
   js: [
-    utils.resolve("src"),
-    utils.resolve("test"),
-    utils.resolve("node_modules/midux"),
-    utils.resolve("node_modules/mitts"),
-    utils.resolve("node_modules/mithril"),
+    utils.resolve('src'),
+    utils.resolve('test'),
+    utils.resolve('node_modules/midux'),
+    utils.resolve('node_modules/mitts'),
+    utils.resolve('node_modules/mithril'),
   ],
   alias: {
-    "@": srcPath,
+    '@': srcPath,
   },
 }
 
 module.exports = {
-  devtool: isProd ? false : "cheap-module-source-map",
+  devtool: isProd ? false : 'cheap-module-source-map',
   html,
   output,
   paths,

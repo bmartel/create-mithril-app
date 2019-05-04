@@ -5,8 +5,8 @@ import serve from 'koa-static'
 import consola from 'consola'
 import Mitts from 'mitts'
 import { express as MittsExpress } from 'mitts/loader'
-import path from 'path'
 
+import config from '../config/config';
 import client from '../src/index'
 
 const app = new Koa()
@@ -14,11 +14,10 @@ const app = new Koa()
 async function start() {
   const port = process.env.PORT || 3000
   const host = process.env.HOST || 'localhost'
-  const buildDir = path.resolve(__dirname, '../build')
 
   const mitts = MittsExpress({
-    html: `${buildDir}/app.html`,
-    manifest: `${buildDir}/mitts.json`,
+    html: config.paths.htmlEntry,
+    manifest: config.paths.mittsManifest,
     createSession(cookies) {},
     createStore: client.store,
     routes: client.routes,

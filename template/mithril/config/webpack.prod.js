@@ -126,7 +126,7 @@ module.exports = {
       clientsClaim: true,
       exclude: [/\.map$/, new RegExp(config.output.manifest)],
       importWorkboxFrom: "cdn",
-      navigateFallback: config.output.publicPath + "index.html",
+      navigateFallback: config.output.publicPath + config.html.filename,
       navigateFallbackBlacklist: [new RegExp("^/_"), new RegExp("/[^/]+\\.[^/]+$")],
     }),
     new WebpackPwaManifest(config.pwa),

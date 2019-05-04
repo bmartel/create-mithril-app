@@ -1,15 +1,13 @@
 require('mithril/test-utils/browserMock')(global)
 
-import path from 'path'
 import consola from 'consola'
 import Mitts from 'mitts'
 import Loader from 'mitts/loader'
 import Hapi from '@hapi/hapi'
 import Inert from '@hapi/inert'
 
+import config from '../config/config';
 import client from '../src/index'
-
-const buildDir = path.resolve(__dirname, '../build')
 
 const server = new Hapi.Server({
   host: process.env.HOST || '127.0.0.1',
@@ -28,8 +26,8 @@ const mitts = new Loader(
     next: h.continue,
   }),
   {
-    html: `${buildDir}/index.html`,
-    manifest: `${buildDir}/mitts.json`,
+    html: config.paths.htmlEntry,
+    manifest: config.paths.mittsManifest,
     createSession(cookies) {},
     createStore: client.store,
     routes: client.routes,

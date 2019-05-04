@@ -8,6 +8,7 @@ import feathers from '@feathersjs/feathers'
 import express from '@feathersjs/express'
 import configuration from '@feathersjs/configuration'
 
+import config from '../config/config'
 import client from '../src/index'
 
 process.env.NODE_CONFIG_DIR = path.join(__dirname, 'config/')
@@ -15,11 +16,9 @@ process.env.NODE_CONFIG_DIR = path.join(__dirname, 'config/')
 async function start() {
   const app = express(feathers())
 
-  const buildDir = path.resolve(__dirname, '../build')
-
   const mitts = MittsExpress({
-    html: `${buildDir}/app.html`,
-    manifest: `${buildDir}/mitts.json`,
+    html: config.paths.htmlEntry,
+    manifest: config.paths.mittsManifest,
     createSession(cookies) {},
     createStore: client.store,
     routes: client.routes,

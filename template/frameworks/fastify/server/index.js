@@ -4,6 +4,7 @@ import Mitts from 'mitts'
 import { express as MittsExpress } from 'mitts/loader'
 import Fastify from 'fastify'
 
+import config from '../config/config'
 import client from '../src/index'
 
 const fastify = Fastify({
@@ -16,8 +17,8 @@ async function start() {
   const buildDir = path.resolve(__dirname, '../build')
 
   const mitts = MittsExpress({
-    html: `${buildDir}/app.html`,
-    manifest: `${buildDir}/mitts.json`,
+    html: config.paths.htmlEntry,
+    manifest: config.paths.mittsManifest,
     createSession(cookies) {},
     createStore: client.store,
     routes: client.routes,

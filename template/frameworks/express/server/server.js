@@ -6,20 +6,19 @@ import bodyParser from "body-parser"
 import express from "express"
 import morgan from "morgan"
 import consola from 'consola';
-import path from "path"
 import cookieParser from "cookie-parser"
 
+import config from '../config/config';
 import client from "../src/index"
 
 async function start() {
   const app = express()
   const port = process.env.PORT || 3000
   const host = process.env.HOST || 'localhost'
-  const buildDir = path.resolve(__dirname, "../build")
 
   const mitts = MittsExpress({
-    html: `${buildDir}/app.html`,
-    manifest: `${buildDir}/mitts.json`,
+    html: config.paths.htmlEntry,
+    manifest: config.paths.mittsManifest,
     createSession(cookies) {},
     createStore: client.store,
     routes: client.routes,
