@@ -15,7 +15,7 @@ const title = { id: 'title', value: 'Mithril + Mirtx' }
 
 store.reactive(text, title)
 
-const updateTitle = title => (title.value = title)
+const updateTitle = newTitle => (title.value = newTitle)
 
 const Home = {
   view() {
