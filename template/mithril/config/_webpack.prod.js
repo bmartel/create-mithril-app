@@ -84,7 +84,7 @@ module.exports = {
           },
           {
             test: <% if (ui === 'material') { %>/\.scss$/<% } else { %>/\.css$/<% } %>,
-            use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader'<% if (ui === 'material') { %>, { loader: 'sass-loader', options: { implementation: require('sass'), fiber: require('fibers') } }<% } %>],
+            use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader'<% if (ui === 'material') { %>, { loader: 'sass-loader', options: { includePaths: [config.paths.nodeModules], implementation: require('sass'), fiber: require('fibers') } }<% } %>],
           },
           {
             exclude: [/\.(js|jsx)$/, /\.html$/, /\.hbs$/, /\.json$/],

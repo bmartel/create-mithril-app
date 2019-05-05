@@ -67,6 +67,7 @@ const srcPath = utils.resolve('src')
 
 const paths = {
   app: srcPath,
+  nodeModules: utils.resolve('node_modules'),
   public: utils.ensureSlash(output.publicPath, true),
   entry: utils.resolve('src/index.js'),
   htmlEntry: utils.resolve(`build/index.html`),
