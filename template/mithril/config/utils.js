@@ -1,6 +1,6 @@
 const path = require("path");
 
-class TailwindExtractor {
+class CssExtractor {
   static extract(content) {
     return content.match(/[A-z0-9-:\/]+/g) || [];
   }
@@ -22,5 +22,5 @@ const resolve = dir => path.join(__dirname, "..", dir);
 module.exports = {
   ensureSlash,
   resolve,
-  TailwindExtractor
+  CssExtractor
 };

@@ -86,8 +86,8 @@ module.exports = {
             },
           },
           {
-            test: /\.css$/,
-            use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader'],
+            test: <% if (ui === 'material') { %>/\.scss$/<% } else { %>/\.css$/<% } %>,
+            use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader'<% if (ui === 'material') { %>, { loader: 'sass-loader', options: { implementation: require('sass'), fiber: require('fibers') } }<% } %>],
           },
           {
             test: /\.hbs$/,

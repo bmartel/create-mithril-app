@@ -17,6 +17,9 @@ const output = {
 
 const template = {
   publicUrl: utils.ensureSlash(output.publicPath, false),
+  external: {
+    css: [<% if (ui === 'material') { %>'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons'<% } %>]
+  },
 }
 
 // Html plugin options

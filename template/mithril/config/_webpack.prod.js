@@ -83,8 +83,8 @@ module.exports = {
             loader: 'handlebars-loader',
           },
           {
-            test: /\.css$/,
-            use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader'],
+            test: <% if (ui === 'material') { %>/\.scss$/<% } else { %>/\.css$/<% } %>,
+            use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader'<% if (ui === 'material') { %>, { loader: 'sass-loader', options: { implementation: require('sass'), fiber: require('fibers') } }<% } %>],
           },
           {
             exclude: [/\.(js|jsx)$/, /\.html$/, /\.hbs$/, /\.json$/],
@@ -117,7 +117,7 @@ module.exports = {
       paths: [...glob.sync(`${config.paths.app}/**/*.js`, { nodir: true }), config.html.template],
       extractors: [
         {
-          extractor: utils.TailwindExtractor,
+          extractor: utils.CssExtractor,
           extensions: ['html', 'hbs', 'js'],
         },
       ],

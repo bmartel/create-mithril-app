@@ -36,12 +36,12 @@ yarn create mithriljs-app <my-project>
     - [Micro](https://github.com/zeit/micro)
     - [Fastify](https://github.com/fastify/fastify)
 2. Check the features needed for your project:
-    - [PWA](https://pwa.mithriljs.org/)
+    - PWA
     - Linter / Formatter
     - [Prettier](https://prettier.io/)
-    - [Axios](https://github.com/mithril-community/axios-module)
 3. Choose your favorite UI framework:
     - None (feel free to add one later)
+    - [Material](https://github.com/material-components/material-components-web)
     - [Tailwind](https://github.com/tailwindcss/tailwindcss)
     - [Tachyons](https://tachyons.io)
 4. Choose your favorite test framework:
@@ -49,6 +49,10 @@ yarn create mithriljs-app <my-project>
     - [Jest](https://github.com/facebook/jest)
     - [AVA](https://github.com/avajs/ava)
     - [Mocha](https://github.com/mochajs/mocha)
+5. Choose a state management framework
+    - None
+    - [Mirtx](https://github.com/bmartel/mirtx)
+    - [Redux](https://github.com/reduxjs/redux)
 
 ## Optional
 

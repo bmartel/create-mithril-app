@@ -1,7 +1,12 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="shortcut icon" href="{{ htmlWebpackPlugin.options.templateVars.publicUrl }}/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="{{ htmlWebpackPlugin.options.templateVars.publicUrl }}/favicon.ico" />
+    {{#each htmlWebpackPlugin.options.templateVars.external.css}}
+    <link href="{{this}}" rel="stylesheet">
+    {{/each}}
+
     <script>
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", function() {

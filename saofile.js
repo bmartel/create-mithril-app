@@ -49,10 +49,6 @@ module.exports = {
         {
           name: 'Prettier',
           value: 'prettier'
-        },
-        {
-          name: 'Axios',
-          value: 'axios'
         }
       ],
       default: []
@@ -64,6 +60,7 @@ module.exports = {
       choices: [
         'none',
         'tailwind',
+        'material',
         'tachyons'
       ],
       default: 'tailwind'
@@ -198,7 +195,10 @@ module.exports = {
       patterns: {
         gitignore: '.gitignore',
         '_package.json': 'package.json',
-        '_.eslintrc.js': '.eslintrc.js'
+        '_.eslintrc.js': '.eslintrc.js',
+        'config/_webpack.dev.js': 'config/webpack.dev.js',
+        'config/_webpack.prod.js': 'config/webpack.prod.js',
+        'config/_config.js': 'config/config.js'
       }
     })
 

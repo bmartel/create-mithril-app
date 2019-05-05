@@ -5,6 +5,6 @@ import hydrate from 'mitts/hydrate'
 import routes from '@/routes'
 import store from '@/store'
 
-import '@/index.css'
+import '@/index.scss'
 
 export default hydrate(m, routes, store)
