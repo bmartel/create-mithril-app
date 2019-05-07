@@ -10,29 +10,19 @@
     "prebuild": "npm run clean",
     "build:dev": "NODE_ENV=development webpack --config ./config/webpack.dev.js",
     "prebuild:dev": "npm run clean",
-    "clean": "rimraf build && mkdir build",
+    "clean": "rimraf build && mkdir build",<% if (server !== 'none') { %>
     "preserve": "npm run build",
-    "serve": "NODE_ENV=production node ./server/index.js",<% if (test !== 'none') { %>
+    "serve": "NODE_ENV=production node ./server/index.js",<% } %><% if (test !== 'none') { %>
     "test": <% if (test === 'mocha') { %>"mocha --compilers css:./test-compiler,js:babel-core/register --recursive"<% } else { %>"<%= test %>"<% } %>,<% } %>
-    "lint": "eslint --fix --ext .js src"
-  },
-  "lint-staged": {
-    "*.{js}": [
-      "npm run lint",
-      "git add"
-    ]
-  },
+    <% if (typescript === 'yes') { %>"typecheck":"tsc --noEmit",<% } %><% if (eslint === 'yes') { %>
+    "lint": "eslint --fix --ext .js,.jsx<% if (typescript === 'yes') { %>,.ts,.tsx<% } %> src"<% } %>
+  },<% if (eslint === 'yes') { %>
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },<% } %>
   "dependencies": {
-    "@babel/core": "^7.1.2",
-    "@babel/preset-env": "^7.1.0",
-    "@babel/plugin-syntax-dynamic-import": "^7.0.0",<% if (typescript === 'yes') { %>
-    "typescript": "^3.4.5",
-    "@types/mithril": "^1.1.16",
-    "@babel/preset-typescript": "^7.3.3",
-    "@babel/plugin-proposal-class-properties": "^7.4.4",
-    "@babel/plugin-proposal-object-rest-spread": "^7.4.4",<% if (linter === 'yes') { %>
-    "@typescript-eslint/parser": "^1.7.0",
-    "@typescript-eslint/eslint-plugin":"",<% }} %>
     "core-js": "^3.0.1",
     "lodash": "^4.17.11"<% if (edge) { %>,
     "mithril": "next"<% } else { %>,
@@ -77,7 +67,6 @@
     "handlebars-loader": "^1.7.0",
     "html-loader": "^0.5.1",
     "html-webpack-plugin": "^4.0.0-alpha.2",
-    "husky": "^2.2.0",
     "imports-loader": "^0.8.0",
     "jsdom": "^12.2.0",
     "jsdom-global": "^3.0.2",
@@ -108,7 +97,19 @@
     "exports-loader": "^0.7.0"<% if (ui === 'material') { %>,
     "fibers": "^4.0.1",
     "sass": "^1.20.1",
-    "sass-loader": "^7.1.0"<% } %><% if (eslint === 'yes') { %>,
+    "sass-loader": "^7.1.0",<% } %>
+    "@babel/core": "^7.1.2",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/plugin-syntax-dynamic-import": "^7.0.0"<% if (typescript === 'yes') { %>,
+    "typescript": "^3.4.5",
+    "@types/node": "^11.13.2",
+    "@types/mithril": "^1.1.16",
+    "@babel/preset-typescript": "^7.3.3",
+    "@babel/plugin-proposal-class-properties": "^7.4.4",
+    "@babel/plugin-proposal-object-rest-spread": "^7.4.4",<% if (eslint === 'yes') { %>
+    "@typescript-eslint/parser": "^1.7.0",
+    "@typescript-eslint/eslint-plugin": "^1.6.0"<% }} %><% if (eslint === 'yes') { %>,
+    "husky": "^2.2.0",
     "babel-eslint": "^10.0.1",
     "eslint": "^5.15.1",
     "eslint-config-standard": ">=12.0.0",
