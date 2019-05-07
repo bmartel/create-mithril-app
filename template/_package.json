@@ -94,13 +94,13 @@
     "webpack-manifest-plugin": "^2.0.4",
     "webpack-pwa-manifest": "^4.0.0",
     "workbox-webpack-plugin": "^4.1.1",
-    "exports-loader": "^0.7.0"<% if (ui === 'material') { %>,
+    "exports-loader": "^0.7.0",<% if (ui === 'material') { %>
     "fibers": "^4.0.1",
     "sass": "^1.20.1",
     "sass-loader": "^7.1.0",<% } %>
     "@babel/core": "^7.1.2",
     "@babel/preset-env": "^7.1.0",
-    "@babel/plugin-syntax-dynamic-import": "^7.0.0"<% if (typescript === 'yes') { %>,
+    "@babel/plugin-syntax-dynamic-import": "^7.0.0",<% if (typescript === 'yes') { %>
     "typescript": "^3.4.5",
     "@types/node": "^11.13.2",
     "@types/mithril": "^1.1.16",
@@ -108,7 +108,7 @@
     "@babel/plugin-proposal-class-properties": "^7.4.4",
     "@babel/plugin-proposal-object-rest-spread": "^7.4.4",<% if (eslint === 'yes') { %>
     "@typescript-eslint/parser": "^1.7.0",
-    "@typescript-eslint/eslint-plugin": "^1.6.0"<% }} %><% if (eslint === 'yes') { %>,
+    "@typescript-eslint/eslint-plugin": "^1.6.0",<% }} %><% if (eslint === 'yes') { %>
     "husky": "^2.2.0",
     "babel-eslint": "^10.0.1",
     "eslint": "^5.15.1",
@@ -119,18 +119,18 @@
     "eslint-plugin-node": ">=8.0.1",
     "eslint-plugin-promise": ">=4.0.1",
     "eslint-plugin-standard": ">=4.0.0",
-    "eslint-loader": "^2.1.2"<% } %><% if (prettier === 'yes') { %>,
+    "eslint-loader": "^2.1.2",<% } %><% if (prettier === 'yes') { %>
     "eslint-config-prettier": "^4.1.0",
     "eslint-plugin-prettier": "^3.0.1",
-    "prettier": "^1.16.4"<% } %><% if (ui === 'tailwind') { %>,
-    "tailwindcss": "^0.7.0"<% } %><% if (test === 'jest') { %>,
+    "prettier": "^1.16.4",<% } %><% if (ui === 'tailwind') { %>
+    "tailwindcss": "^0.7.0",<% } %><% if (test === 'jest') { >
     "babel-core": "7.0.0-bridge.0",
     "babel-jest": "^24.1.0",
-    "jest": "^24.1.0"<% } else if (test === 'ava') { %>,
+    "jest": "^24.1.0",<% } else if (test === 'ava') { %>
     "ava": "^1.0.1",
     "browser-env": "^3.2.5",
     "require-extension-hooks": "^0.3.3",
-    "require-extension-hooks-babel": "^0.1.1"<% } else if (test === 'mocha') { %>,
+    "require-extension-hooks-babel": "^0.1.1",<% } else if (test === 'mocha') { %>
     "mocha": "^5.2.0",
     "chai": "^4.2.0",
     "sinon": "^7.0.0"<% } %>
