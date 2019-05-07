@@ -5,6 +5,7 @@ module.exports = function(api) {
 
   const presets = [
     ['@babel/env', isTest ? { targets: { node: 'current' } } : { useBuiltIns: 'entry', corejs: '3' }],
+    '@babel/typescript',
   ]
 
   const plugins = [

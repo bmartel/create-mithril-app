@@ -27,9 +27,12 @@ register(ignoreStyles.DEFAULT_EXTENSIONS, (mod, filename) => {
 })
 
 require("@babel/register")({
-  extensions: ['.js', '.jsx', '.json'],
+  extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
   ignore: [/\/build\//],
-  presets: [["@babel/env", { targets: { node: "current" } }]],
+  presets: [
+    ["@babel/env", { targets: { node: "current" } }],
+    '@babel/typescript',
+  ],
   plugins: [
     [
       "babel-plugin-module-resolver",
@@ -42,8 +45,11 @@ require("@babel/register")({
     ],
     "@babel/syntax-dynamic-import",
     "babel-plugin-dynamic-import-node",
+    '@babel/proposal-class-properties',
+    '@babel/proposal-object-rest-spread',
     "mitts/babel",
   ],
 })
 
 require("./server")
+

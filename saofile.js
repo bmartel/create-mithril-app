@@ -49,6 +49,10 @@ module.exports = {
         {
           name: 'Prettier',
           value: 'prettier'
+        },
+        {
+          name: "Typescript",
+          value: 'typescript'
         }
       ],
       default: []
@@ -118,7 +122,7 @@ module.exports = {
     const pwa = this.answers.features.includes('pwa')
     const linter = this.answers.features.includes('linter')
     const prettier = this.answers.features.includes('prettier')
-    const axios = this.answers.features.includes('axios')
+    const typescript = this.answers.features.includes('typescript')
     const esm = this.answers.server === 'none'
 
     return {
@@ -126,7 +130,7 @@ module.exports = {
       pwa: pwa ? 'yes' : 'no',
       eslint: linter ? 'yes' : 'no',
       prettier: prettier ? 'yes' : 'no',
-      axios: axios ? 'yes' : 'no',
+      typescript: typescript ? 'yes' : 'no',
       esm
     }
   },
@@ -230,11 +234,10 @@ module.exports = {
     console.log()
     console.log(this.chalk.bold(`  To get started:\n`))
     cd()
-    console.log(`\t${this.answers.pm} run dev\n`)
+    console.log(`\t${this.answers.pm} run start\n`)
     console.log(this.chalk.bold(`  To build & start for production:\n`))
     cd()
-    console.log(`\t${this.answers.pm} run build`)
-    console.log(`\t${this.answers.pm} start`)
+    console.log(`\t${this.answers.pm} run serve`)
 
     if (this.answers.test !== 'none') {
       console.log(this.chalk.bold(`\n  To test:\n`))

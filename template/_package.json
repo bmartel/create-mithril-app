@@ -25,7 +25,14 @@
   "dependencies": {
     "@babel/core": "^7.1.2",
     "@babel/preset-env": "^7.1.0",
-    "@babel/plugin-syntax-dynamic-import": "^7.0.0",
+    "@babel/plugin-syntax-dynamic-import": "^7.0.0",<% if (typescript === 'yes') { %>
+    "typescript": "^3.4.5",
+    "@types/mithril": "^1.1.16",
+    "@babel/preset-typescript": "^7.3.3",
+    "@babel/plugin-proposal-class-properties": "^7.4.4",
+    "@babel/plugin-proposal-object-rest-spread": "^7.4.4",<% if (linter === 'yes') { %>
+    "@typescript-eslint/parser": "^1.7.0",
+    "@typescript-eslint/eslint-plugin":"",<% }} %>
     "core-js": "^3.0.1",
     "lodash": "^4.17.11"<% if (edge) { %>,
     "mithril": "next"<% } else { %>,

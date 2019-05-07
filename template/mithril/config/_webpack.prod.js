@@ -36,7 +36,7 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: ['.js', '.json'],
+    extensions: [<% if (typescript === 'yes') { %>'.ts', '.tsx',<% } %>'.js', '.jsx', '.json'],
     alias: config.paths.alias,
   },
   output: {
@@ -70,7 +70,7 @@ module.exports = {
             type: 'javascript/auto',
           },
           {
-            test: /\.js$/,
+            test: <% if (typescript === 'yes') { %>/\.(ts|js)x?$/<% } else { %>/\.jsx?$/<% } %>,
             loader: 'babel-loader',
             include: config.paths.js,
             options: {
@@ -87,7 +87,7 @@ module.exports = {
             use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader'<% if (ui === 'material') { %>, { loader: 'sass-loader', options: { includePaths: [config.paths.nodeModules], implementation: require('sass'), fiber: require('fibers') } }<% } %>],
           },
           {
-            exclude: [/\.(js|jsx)$/, /\.html$/, /\.hbs$/, /\.json$/],
+            exclude: [<% if (typescript === 'yes') { %>/\.(js|ts)x?$/<% } else { %>/\.jsx?$/<% } %>/\.(js|jsx)$/, /\.html$/, /\.hbs$/, /\.json$/],
             loader: 'file-loader',
             options: {
               name: 'static/media/[name].[hash:6].[ext]',
