@@ -87,7 +87,7 @@ module.exports = {
             use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader'<% if (ui === 'material') { %>, { loader: 'sass-loader', options: { includePaths: [config.paths.nodeModules], implementation: require('sass'), fiber: require('fibers') } }<% } %>],
           },
           {
-            exclude: [<% if (typescript === 'yes') { %>/\.(js|ts)x?$/<% } else { %>/\.jsx?$/<% } %>/\.(js|jsx)$/, /\.html$/, /\.hbs$/, /\.json$/],
+            exclude: [<% if (typescript === 'yes') { %>/\.(js|ts)x?$/<% } else { %>/\.jsx?$/<% } %>, /\.html$/, /\.hbs$/, /\.json$/],
             loader: 'file-loader',
             options: {
               name: 'static/media/[name].[hash:6].[ext]',
