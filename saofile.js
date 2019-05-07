@@ -1,249 +1,246 @@
-const { join } = require('path')
-const superb = require('superb')
-const glob = require('glob')
-const spawn = require('cross-spawn')
-const validate = require('validate-npm-package-name')
+const { join } = require("path");
+const superb = require("superb");
+const glob = require("glob");
+const spawn = require("cross-spawn");
+const validate = require("validate-npm-package-name");
 
-const rootDir = __dirname
+const rootDir = __dirname;
 
 module.exports = {
   prompts: [
     {
-      name: 'name',
-      message: 'Project name',
-      default: '{outFolder}'
+      name: "name",
+      message: "Project name",
+      default: "{outFolder}"
     },
     {
-      name: 'description',
-      message: 'Project description',
+      name: "description",
+      message: "Project description",
       default: `My ${superb()} Mithril.js project`
     },
     {
-      name: 'server',
-      message: 'Use a custom server framework',
-      type: 'list',
+      name: "server",
+      message: "Use a custom server framework",
+      type: "list",
       choices: [
-        'none',
-        'express',
-        'koa',
-        'hapi',
-        'feathers',
-        'micro',
-        'fastify'
+        "none",
+        "express",
+        "koa",
+        "hapi",
+        "feathers",
+        "micro",
+        "fastify"
       ],
-      default: 'express'
+      default: "express"
     },
     {
-      name: 'features',
-      message: 'Choose features to install',
-      type: 'checkbox',
+      name: "features",
+      message: "Choose features to install",
+      type: "checkbox",
       choices: [
         {
-          name: 'Progressive Web App (PWA) Support',
-          value: 'pwa'
+          name: "Progressive Web App (PWA) Support",
+          value: "pwa"
         },
         {
-          name: 'Linter / Formatter',
-          value: 'linter'
+          name: "Linter / Formatter",
+          value: "linter"
         },
         {
-          name: 'Prettier',
-          value: 'prettier'
+          name: "Prettier",
+          value: "prettier"
         },
         {
           name: "Typescript",
-          value: 'typescript'
+          value: "typescript"
         }
       ],
       default: []
     },
     {
-      name: 'ui',
-      message: 'Use a custom UI framework',
-      type: 'list',
-      choices: [
-        'none',
-        'tailwind',
-        'material',
-        'tachyons'
-      ],
-      default: 'tailwind'
+      name: "ui",
+      message: "Use a custom UI framework",
+      type: "list",
+      choices: ["none", "tailwind", "material", "tachyons"],
+      default: "tailwind"
     },
     {
-      name: 'test',
-      message: 'Use a custom test framework',
-      type: 'list',
-      choices: [
-        'none',
-        'jest',
-        'ava',
-        'mocha',
-      ],
-      default: 'mocha'
+      name: "test",
+      message: "Use a custom test framework",
+      type: "list",
+      choices: ["none", "jest", "ava", "mocha"],
+      default: "mocha"
     },
     {
-      name: 'state',
-      message: 'Use a state management framework',
-      type: 'list',
-      choices: [
-        'none',
-        'mirtx',
-        'redux',
-      ],
-      default: 'mirtx'
+      name: "state",
+      message: "Use a state management framework",
+      type: "list",
+      choices: ["none", "mirtx", "redux"],
+      default: "mirtx"
     },
     {
-      name: 'mode',
-      message: 'Choose rendering mode',
-      type: 'list',
+      name: "mode",
+      message: "Choose rendering mode",
+      type: "list",
       choices: [
-        { name: 'Universal', value: 'universal' },
-        { name: 'Single Page App', value: 'spa' }
+        { name: "Universal", value: "universal" },
+        { name: "Single Page App", value: "spa" }
       ],
-      default: 'universal'
+      default: "universal"
     },
     {
-      name: 'author',
-      type: 'string',
-      message: 'Author name',
-      default: '{gitUser.name}',
+      name: "author",
+      type: "string",
+      message: "Author name",
+      default: "{gitUser.name}",
       store: true
     },
     {
-      name: 'pm',
-      message: 'Choose a package manager',
-      choices: ['npm', 'yarn'],
-      type: 'list',
-      default: 'yarn'
+      name: "pm",
+      message: "Choose a package manager",
+      choices: ["npm", "yarn"],
+      type: "list",
+      default: "yarn"
     }
   ],
   templateData() {
-    const edge = process.argv.includes('--edge')
-    const pwa = this.answers.features.includes('pwa')
-    const linter = this.answers.features.includes('linter')
-    const prettier = this.answers.features.includes('prettier')
-    const typescript = this.answers.features.includes('typescript')
-    const esm = this.answers.server === 'none'
+    const edge = process.argv.includes("--edge");
+    const pwa = this.answers.features.includes("pwa");
+    const linter = this.answers.features.includes("linter");
+    const prettier = this.answers.features.includes("prettier");
+    const typescript = this.answers.features.includes("typescript");
+    const esm = this.answers.server === "none";
 
     return {
       edge,
-      pwa: pwa ? 'yes' : 'no',
-      eslint: linter ? 'yes' : 'no',
-      prettier: prettier ? 'yes' : 'no',
-      typescript: typescript ? 'yes' : 'no',
+      pwa: pwa ? "yes" : "no",
+      eslint: linter ? "yes" : "no",
+      prettier: prettier ? "yes" : "no",
+      typescript: typescript ? "yes" : "no",
       esm
-    }
+    };
   },
   actions() {
-    const validation = validate(this.answers.name)
-    validation.warnings && validation.warnings.forEach((warn) => {
-      console.warn('Warning:', warn)
-    })
-    validation.errors && validation.errors.forEach((err) => {
-      console.error('Error:', err)
-    })
-    validation.errors && validation.errors.length && process.exit(1)
+    const validation = validate(this.answers.name);
+    validation.warnings &&
+      validation.warnings.forEach(warn => {
+        console.warn("Warning:", warn);
+      });
+    validation.errors &&
+      validation.errors.forEach(err => {
+        console.error("Error:", err);
+      });
+    validation.errors && validation.errors.length && process.exit(1);
 
-    const actions = [{
-      type: 'add',
-      files: '**',
-      templateDir: 'template/mithril',
-      filters: {
-        'static/icon.png': 'features.includes("pwa")'
+    const actions = [
+      {
+        type: "add",
+        files: "**",
+        templateDir: "template/mithril",
+        filters: {
+          "static/icon.png": 'features.includes("pwa")'
+        }
       }
-    }]
+    ];
 
-    if (this.answers.ui !== 'none') {
+    if (this.answers.ui !== "none") {
       actions.push({
-        type: 'add',
-        files: '**',
+        type: "add",
+        files: "**",
         templateDir: `template/frameworks/${this.answers.ui}`
-      })
+      });
     }
 
-    if (this.answers.test !== 'none') {
+    if (this.answers.test !== "none") {
       actions.push({
-        type: 'add',
-        files: '**',
+        type: "add",
+        files: "**",
         templateDir: `template/frameworks/${this.answers.test}`
-      })
+      });
     }
 
-    if (this.answers.server !== 'none') {
+    if (this.answers.server !== "none") {
       actions.push({
-        type: 'add',
-        files: '**',
+        type: "add",
+        files: "**",
         templateDir: `template/frameworks/${this.answers.server}`
-      })
+      });
     }
 
-    if (this.answers.state !== 'none') {
+    if (this.answers.state !== "none") {
       actions.push({
-        type: 'add',
-        files: '**',
+        type: "add",
+        files: "**",
         templateDir: `template/frameworks/${this.answers.state}`
-      })
+      });
     }
 
     actions.push({
-      type: 'add',
-      files: '*',
+      type: "add",
+      files: "*",
       filters: {
-        '_.eslintrc.js': 'features.includes("linter")',
-        '.prettierrc': 'features.includes("prettier")'
+        "_.eslintrc.js": 'features.includes("linter")',
+        ".prettierrc": 'features.includes("prettier")'
       }
-    })
+    });
 
     actions.push({
-      type: 'move',
+      type: "move",
       patterns: {
-        gitignore: '.gitignore',
-        '_package.json': 'package.json',
-        '_.eslintrc.js': '.eslintrc.js',
-        'config/_webpack.dev.js': 'config/webpack.dev.js',
-        'config/_webpack.prod.js': 'config/webpack.prod.js',
-        'config/_config.js': 'config/config.js'
+        gitignore: ".gitignore",
+        "_package.json": "package.json",
+        "_.eslintrc.js": ".eslintrc.js",
+        "config/_webpack.dev.js": "config/webpack.dev.js",
+        "config/_webpack.prod.js": "config/webpack.prod.js",
+        "config/_config.js": "config/config.js"
       }
-    })
+    });
 
-    return actions
+    return actions;
   },
   async completed() {
-    this.gitInit()
+    this.gitInit();
 
-    await this.npmInstall({ npmClient: this.answers.pm })
+    await this.npmInstall({ npmClient: this.answers.pm });
 
-    const isNewFolder = this.outDir !== process.cwd()
+    const isNewFolder = this.outDir !== process.cwd();
     const cd = () => {
       if (isNewFolder) {
-        console.log(`\t${this.chalk.cyan('cd')} ${this.outFolder}`)
+        console.log(`\t${this.chalk.cyan("cd")} ${this.outFolder}`);
       }
-    }
+    };
 
-    if (this.answers.features.includes('linter')) {
-      const options = ['run', 'lint', '--', '--fix']
-      if (this.answers.pm === 'yarn') {
-        options.splice(2, 1)
+    if (this.answers.features,includes("typescript")) {
+      const options = ["src", "-name", "'*.js'", "-exec", "sh", "-c", "mv '$0' '${0%.js}.ts'"];
+      spawn.sync('find', options, {
+        cwd: this.outDir,
+        stdio: "inherit"
+      });
+    }
+    if (this.answers.features.includes("linter")) {
+      const options = ["run", "lint", "--", "--fix"];
+      if (this.answers.pm === "yarn") {
+        options.splice(2, 1);
       }
       spawn.sync(this.answers.pm, options, {
         cwd: this.outDir,
-        stdio: 'inherit'
-      })
+        stdio: "inherit"
+      });
     }
 
-    console.log()
-    console.log(this.chalk.bold(`  To get started:\n`))
-    cd()
-    console.log(`\t${this.answers.pm} run start\n`)
-    console.log(this.chalk.bold(`  To build & start for production:\n`))
-    cd()
-    console.log(`\t${this.answers.pm} run serve`)
+    console.log();
+    console.log(this.chalk.bold(`  To get started:\n`));
+    cd();
+    console.log(`\t${this.answers.pm} run start\n`);
+    console.log(this.chalk.bold(`  To build & start for production:\n`));
+    cd();
+    console.log(`\t${this.answers.pm} run serve`);
 
-    if (this.answers.test !== 'none') {
-      console.log(this.chalk.bold(`\n  To test:\n`))
-      cd()
-      console.log(`\t${this.answers.pm} run test`)
+    if (this.answers.test !== "none") {
+      console.log(this.chalk.bold(`\n  To test:\n`));
+      cd();
+      console.log(`\t${this.answers.pm} run test`);
     }
-    console.log()
+    console.log();
   }
-}
+};

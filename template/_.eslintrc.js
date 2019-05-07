@@ -21,7 +21,7 @@ module.exports = {
     }
   },
   extends: [
-    'eslint:recommended'<% if (typescript === 'yes') { %>
+    'eslint:recommended'<% if (typescript === 'yes') { %>,
     'plugin:@typescript-eslint/recommended'<% } %><% if (prettier === 'yes') { %>,
     'plugin:prettier/recommended',
     'prettier',<% if (typescript === 'yes') { %>
