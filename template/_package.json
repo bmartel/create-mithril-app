@@ -108,7 +108,7 @@
     "@babel/plugin-proposal-class-properties": "^7.4.4",
     "@babel/plugin-proposal-object-rest-spread": "^7.4.4",<% if (eslint === 'yes') { %>
     "@typescript-eslint/parser": "^1.7.0",
-    "@typescript-eslint/eslint-plugin": "^1.6.0",<% }} %><% if (eslint === 'yes') { %>
+    "@typescript-eslint/eslint-plugin": "^1.6.0",<% } %><% } %><% if (eslint === 'yes') { %>
     "husky": "^2.2.0",
     "babel-eslint": "^10.0.1",
     "eslint": "^5.15.1",
