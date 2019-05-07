@@ -210,7 +210,7 @@ module.exports = {
       }
     };
 
-    if (this.answers.features,includes("typescript")) {
+    if (this.answers.features.includes("typescript")) {
       const options = ["src", "-name", "'*.js'", "-exec", "sh", "-c", "mv '$0' '${0%.js}.ts'"];
       spawn.sync('find', options, {
         cwd: this.outDir,
