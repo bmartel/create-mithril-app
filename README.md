@@ -39,6 +39,7 @@ yarn create mithriljs-app <my-project>
     - PWA
     - Linter / Formatter
     - [Prettier](https://prettier.io/)
+    - [Typescript](https://github.com/Microsoft/TypeScript)
 3. Choose your favorite UI framework:
     - None (feel free to add one later)
     - [Material](https://github.com/material-components/material-components-web)
