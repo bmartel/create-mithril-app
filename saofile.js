@@ -208,16 +208,6 @@ module.exports = {
         }
       });
 
-      if (this.answers.server !== "none") {
-        actions.push({
-          type: "move",
-          patterns: {
-            "server/index.js": "server/index.ts",
-            "server/server.js": "server/server.ts"
-          }
-        });
-      }
-
       if (this.answers.state === "redux") {
         actions.push({
           type: "move",
