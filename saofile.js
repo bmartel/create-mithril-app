@@ -136,10 +136,7 @@ module.exports = {
       {
         type: "add",
         files: "**",
-        templateDir: "template/mithril",
-        filters: {
-          "static/icon.png": 'features.includes("pwa")'
-        }
+        templateDir: "template/mithril"
       }
     ];
 
@@ -196,6 +193,55 @@ module.exports = {
       }
     });
 
+    if (this.answers.features.includes("typescript")) {
+      actions.push({
+        type: "move",
+        patterns: {
+          "src/index.js": "src/index.ts",
+          "src/store.js": "src/store.ts",
+          "src/routes.js": "src/routes.ts",
+          "src/components/counter.js": "src/components/counter.ts",
+          "src/components/home.js": "src/components/home.ts",
+          "src/components/loading.js": "src/components/loading.ts",
+          "src/components/logo.js": "src/components/logo.ts",
+          "src/index.js": "src/index.ts"
+        }
+      });
+
+      if (this.answers.server !== "none") {
+        actions.push({
+          type: "move",
+          patterns: {
+            "server/index.js": "server/index.ts",
+            "server/server.js": "server/server.ts"
+          }
+        });
+      }
+
+      if (this.answers.state === "redux") {
+        actions.push({
+          type: "move",
+          patterns: {
+            "src/actions/counter.js": "src/actions/counter.ts",
+            "src/actions/page.js": "src/actions/page.ts",
+            "src/reducers/counter.js": "src/reducers/counter.ts",
+            "src/reducers/page.js": "src/reducers/page.ts",
+            "src/containers/counter.js": "src/containers/counter.ts",
+            "src/containers/home.js": "src/containers/home.ts"
+          }
+        });
+      }
+
+      if (this.answers.state === "mirtx") {
+        actions.push({
+          type: "move",
+          patterns: {
+            "src/segments.js": "src/segments.ts",
+          }
+        });
+      }
+    }
+
     return actions;
   },
   async completed() {
@@ -210,13 +256,6 @@ module.exports = {
       }
     };
 
-    if (this.answers.features.includes("typescript")) {
-      const options = ["src", "-name", "'*.js'", "-exec", "sh", "-c", "mv '$0' '${0%.js}.ts'"];
-      spawn.sync('find', options, {
-        cwd: this.outDir,
-        stdio: "inherit"
-      });
-    }
     if (this.answers.features.includes("linter")) {
       const options = ["run", "lint", "--", "--fix"];
       if (this.answers.pm === "yarn") {
