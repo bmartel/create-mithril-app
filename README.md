@@ -31,10 +31,10 @@ yarn create mithriljs-app <my-project>
     - None (Mithril default server)
     - [Express](https://github.com/expressjs/express)
     - [Koa](https://github.com/koajs/koa)
-    - [Hapi](https://github.com/hapijs/hapi)
     - [Feathers](https://github.com/feathersjs/feathers)
-    - [Micro](https://github.com/zeit/micro)
-    - [Fastify](https://github.com/fastify/fastify)
+    - [Hapi](https://github.com/hapijs/hapi)_work in progress_
+    - [Micro](https://github.com/zeit/micro)_work in progress_
+    - [Fastify](https://github.com/fastify/fastify)_work in progress_
 2. Check the features needed for your project:
     - PWA
     - Linter / Formatter
@@ -52,7 +52,7 @@ yarn create mithriljs-app <my-project>
     - [Mocha](https://github.com/mochajs/mocha)
 5. Choose a state management framework
     - None
-    - [Mirtx](https://github.com/bmartel/mirtx)
+    - [Mirtx](https://github.com/bmartel/mirtx)_experimental_
     - [Redux](https://github.com/reduxjs/redux)
 
 ## Optional
