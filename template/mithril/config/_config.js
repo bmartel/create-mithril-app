@@ -69,7 +69,7 @@ const paths = {
   app: srcPath,
   nodeModules: utils.resolve('node_modules'),
   public: utils.ensureSlash(output.publicPath, true),
-  entry: utils.resolve('src/index.js'),
+  entry: utils.resolve('src/index.<% if (typescript === 'yes') { %>ts<% } else { %>js<% } %>'),
   htmlEntry: utils.resolve(`build/index.html`),
   mittsManifest: utils.resolve('build/mitts.json'),
   js: [
