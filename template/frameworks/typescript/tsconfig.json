@@ -2,12 +2,21 @@
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",
+    "strict": false,
+    "jsx": "preserve",
     "allowJs": true,
     "noEmit": true,
-    "strict": true,
-    "isolatedModules": true,
-    "esModuleInterop": true
+    "importHelpers": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "sourceMap": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    },
+    "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
   },
-  "typeRoots": ["node_modules/@types", "types"],
-  "include": ["src"]
+  "include": ["src/**/*.ts", "src/**/*.tsx", "test/**/*.ts", "test/**/*.tsx"],
+  "exclude": ["node_modules"]
 }
