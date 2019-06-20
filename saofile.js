@@ -208,6 +208,12 @@ module.exports = {
         }
       });
 
+      actions.push({
+        type: "add",
+        files: "**",
+        templateDir: "template/frameworks/typescript"
+      });
+
       if (this.answers.state === "redux") {
         actions.push({
           type: "move",
