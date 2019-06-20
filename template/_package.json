@@ -53,6 +53,7 @@
     "@material/ripple": "^1.0.0",
     "@material/typography": "^1.0.0"<% } %><% if (state === 'redux') { %>,
     "redux": "^4.0.1",
+    "midux": "^2.2.0",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0"<% } %><% if (state === 'mirtx') { %>,
     "mirtx": "^0.1.0"<% } %>
