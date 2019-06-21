@@ -75,8 +75,8 @@ module.exports = {
       name: "state",
       message: "Use a state management framework",
       type: "list",
-      choices: ["none", "mirtx", "redux"],
-      default: "mirtx"
+      choices: ["none", "storeon", "redux"],
+      default: "storeon"
     },
     {
       name: "mode",
@@ -228,11 +228,22 @@ module.exports = {
         });
       }
 
+      if (this.answers.state === "storeon") {
+        actions.push({
+          type: "move",
+          patterns: {
+            "src/store/modules/counter.js": "src/store/modules/counter.ts",
+            "src/store/modules/page.js": "src/store/modules/page.ts",
+            "src/store/store.js": "src/store/store.ts",
+          }
+        });
+      }
+
       if (this.answers.state === "mirtx") {
         actions.push({
           type: "move",
           patterns: {
-            "src/segments.js": "src/segments.ts",
+            "src/segments.js": "src/segments.ts"
           }
         });
       }

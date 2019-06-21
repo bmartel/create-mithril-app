@@ -55,7 +55,8 @@
     "redux": "^4.0.1",
     "midux": "^2.2.0",
     "redux-logger": "^3.0.6",
-    "redux-thunk": "^2.3.0"<% } %><% if (state === 'mirtx') { %>,
+    "redux-thunk": "^2.3.0"<% } %><% if (state === 'storeon') { %>,
+    "storeon": "^0.8.6"<% } %><% if (state === 'mirtx') { %>,
     "mirtx": "^0.1.0"<% } %>
   },
   "devDependencies": {
