@@ -26,7 +26,7 @@
     "core-js": "^3.0.1",
     "lodash": "^4.17.11"<% if (edge) { %>,
     "mithril": "next"<% } else { %>,
-    "mithril": "^1.1.6"<% } %><% if (server !== 'none') { %>,
+    "mithril": "^2.0.1"<% } %><% if (server !== 'none') { %>,
     "@babel/register": "^7.0.0",
     "babel-plugin-dynamic-import-node": "^2.2.0",
     "babel-plugin-module-resolver": "^3.1.1",
