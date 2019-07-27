@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.1.55](https://github.com/bmartel/create-mithril-app/compare/v0.1.54...v0.1.55) (2019-07-27)
+
+
+
 ## [0.1.54](https://github.com/bmartel/create-mithril-app/compare/v0.1.53...v0.1.54) (2019-07-27)
 
 
