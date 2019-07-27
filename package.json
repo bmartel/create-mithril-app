@@ -1,6 +1,6 @@
 {
   "name": "create-mithriljs-app",
-  "version": "0.1.52",
+  "version": "0.1.53",
   "description": "Create a Mithril.js App in seconds.",
   "bin": "cli.js",
   "files": [
