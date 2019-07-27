@@ -2,7 +2,7 @@ const path = require("path");
 
 class CssExtractor {
   static extract(content) {
-    return content.match(/[A-z0-9-:\/]+/g) || [];
+    return content.match(/[A-z0-9-_:/]+/g) || [];
   }
 }
 
