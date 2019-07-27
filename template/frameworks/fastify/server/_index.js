@@ -5,7 +5,7 @@ import { express as MittsExpress } from 'mitts/loader'
 import Fastify from 'fastify'
 
 import config from '../config/config'
-import client from '../src/index'
+import client from '../src/index<% if (typescript === "yes") { %>.ts<% } %>'
 
 const fastify = Fastify({
   logger: true,

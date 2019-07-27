@@ -162,6 +162,14 @@ module.exports = {
         files: "**",
         templateDir: `template/frameworks/${this.answers.server}`
       });
+
+      actions.push({
+        type: "move",
+        patterns: {
+          "server/_server.js": "server.js",
+          "server/_index.js": "index.js",
+        }
+      });
     }
 
     if (this.answers.state !== "none") {

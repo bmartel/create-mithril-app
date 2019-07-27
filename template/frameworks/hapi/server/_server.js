@@ -7,7 +7,7 @@ import Hapi from '@hapi/hapi'
 import Inert from '@hapi/inert'
 
 import config from '../config/config';
-import client from '../src/index'
+import client from '../src/index<% if (typescript === "yes") { %>.ts<% } %>'
 
 const server = new Hapi.Server({
   host: process.env.HOST || '127.0.0.1',

@@ -9,7 +9,7 @@ import express from '@feathersjs/express'
 import configuration from '@feathersjs/configuration'
 
 import config from '../config/config'
-import client from '../src/index'
+import client from '../src/index<% if (typescript === "yes") { %>.ts<% } %>'
 
 process.env.NODE_CONFIG_DIR = path.join(__dirname, 'config/')
 

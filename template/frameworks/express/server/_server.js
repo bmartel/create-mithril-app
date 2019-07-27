@@ -9,7 +9,7 @@ import consola from 'consola';
 import cookieParser from "cookie-parser"
 
 import config from '../config/config';
-import client from "../src/index"
+import client from '../src/index<% if (typescript === "yes") { %>.ts<% } %>'
 
 async function start() {
   const app = express()

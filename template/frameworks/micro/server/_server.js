@@ -1,15 +1,13 @@
 require('mithril/test-utils/browserMock')(global)
 
-import Koa from 'koa'
-import serve from 'koa-static'
+import micro from 'micro'
+import dispatch from 'micro-route/dispatch'
 import consola from 'consola'
 import Mitts from 'mitts'
 import { express as MittsExpress } from 'mitts/loader'
 
-import config from '../config/config';
-import client from '../src/index'
-
-const app = new Koa()
+import config from '../config/config'
+import client from '../src/index<% if (typescript === "yes") { %>.ts<% } %>'
 
 async function start() {
   const port = process.env.PORT || 3000
@@ -23,18 +21,13 @@ async function start() {
     routes: client.routes,
   })
 
-  app.use(serve(config.output.path))
-
-  app.use(ctx => {
-    ctx.status = 200
-    ctx.respond = false // Bypass Koa's built-in response handling
-    ctx.req.ctx = ctx
-    mitts.middleware()(ctx.req, ctx.res, ctx.next)
+  const server = micro(async (req, res) => {
+    await dispatch().dispatch('*', ['GET'], (req, res) => mitts.middleware()(req, res))(req, res)
   })
 
   await Mitts.preloadAll()
 
-  app.listen(port, host)
+  server.listen(port, host)
 
   consola.ready({
     message: `Server listening on http://${host}:${port}`,
