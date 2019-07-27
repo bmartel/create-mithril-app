@@ -24,7 +24,7 @@ const Home = {
           oninput: e => $dispatch('page/updateTitle', e.target.value),
           value: title,
         }),
-        m('p.w-full.flex.justify-end', m('a', { href: '/counter', oncreate: m.route.link }, ['Counter '])),
+        m('p.w-full.flex.justify-end', m(m.route.Link , { href: '/counter' }, ['Counter '])),
       ]),
     ])
   },

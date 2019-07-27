@@ -14,7 +14,7 @@ const Counter = {
       m('.w-1/3.flex.flex-col.items-center', [
         m('h1', `${count.value} clicked`),
         m('button.border.py-2.px-3.my-3.hover:bg-grey-light.rounded', { onclick: addCount }, 'click me'),
-        m('p', m('a', { href: '/', oncreate: m.route.link }, ['Home '])),
+        m('p', m(m.route.Link, { href: '/' }, ['Home '])),
       ]),
     ])
   },

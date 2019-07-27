@@ -29,7 +29,7 @@ const Home = {
           oninput: e => updateTitle(e.target.value),
           value: title.value,
         }),
-        m('p.w-full.flex.justify-end', m('a', { href: '/counter', oncreate: m.route.link }, ['Counter '])),
+        m('p.w-full.flex.justify-end', m(m.route.Link, { href: '/counter' }, ['Counter '])),
       ]),
     ])
   },

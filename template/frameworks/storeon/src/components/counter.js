@@ -13,7 +13,7 @@ const Counter = {
           { onclick: () => $dispatch('counter/add') },
           'click me'
         ),
-        m('p', m('a', { href: '/', oncreate: m.route.link }, ['Home '])),
+        m('p', m(m.route.Link , { href: '/' }, ['Home '])),
       ]),
     ])
   },
