@@ -166,8 +166,8 @@ module.exports = {
       actions.push({
         type: "move",
         patterns: {
-          "server/_server.js": "server.js",
-          "server/_index.js": "index.js",
+          "server/_server.js": "server/server.js",
+          "server/_index.js": "server/index.js",
         }
       });
     }
@@ -277,6 +277,14 @@ module.exports = {
         options.splice(2, 1);
       }
       spawn.sync(this.answers.pm, options, {
+        cwd: this.outDir,
+        stdio: "inherit"
+      });
+    }
+
+    if (this.answers.ui === 'tailwind') {
+      const options = ["tailwind", "init", "config/tailwind.config.js"];
+      spawn.sync('npx', options, {
         cwd: this.outDir,
         stdio: "inherit"
       });

@@ -4,8 +4,7 @@ module.exports = {
     browser: true,
     es6: true,
     node: true<% if (test === 'mocha') { %>,
-    mocha: true<% } %><% if (test === 'jest') { %>,
-    'jest/globals': true<% } %>
+    mocha: true<% } %>
   },
   settings: {
     'import/resolver': {
@@ -78,10 +77,5 @@ module.exports = {
 
     // No useless destructuring/importing/exporting renames
     'no-useless-rename': 2
-  },
-  globals: {
-    requestAnimationFrame: true,
-    cancelAnimationFrame: true,
-    Promise: true,
-  },
+  }
 }
